@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Clone</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Theme */
+            --color-primary: #208080;
+            --color-accent: #2180A1;
+            --color-success: #32B8C6;
+            --color-warning: #E68159;
+            --color-error: #C01540;
+            --color-bg-primary: #FCFCF9;
+            --color-bg-surface: #FFFFFF;
+            --color-bg-sidebar: #F7F7F5;
+            --color-text-primary: #134252;
+            --color-text-secondary: #626C7C;
+            --color-border: rgba(94, 82, 64, 0.15);
+            --color-border-strong: rgba(94, 82, 64, 0.3);
+        }
+
+        .dark {
+            /* Dark Theme */
+            --color-primary: #32B8C6;
+            --color-accent: #32B8C6;
+            --color-bg-primary: #0c0c0e;
+            --color-bg-surface: #16161a;
+            --color-bg-sidebar: #080809;
+            --color-text-primary: #eeeeee;
+            --color-text-secondary: #94a3b8;
+            --color-border: #1f1f23;
+            --color-border-strong: #2d2d31;
+        }
+
+        .high-contrast {
+            /* High Contrast Theme */
+            --color-primary: #ffffff;
+            --color-accent: #ffffff;
+            --color-bg-primary: #000000;
+            --color-bg-surface: #000000;
+            --color-bg-sidebar: #000000;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #ffffff;
+            --color-border: #ffffff;
+            --color-border-strong: #ffffff;
+            border-width: 1px;
+        }
+
+        .high-contrast * {
+            border-width: 1.5px !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+        
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-border-strong);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-secondary);
+        }
+
+        .kanban-column {
+            min-width: 300px;
+            max-width: 300px;
+        }
+
+        .recharts-cartesian-grid-horizontal line,
+        .recharts-cartesian-grid-vertical line {
+          stroke: var(--color-border);
+        }
+
+        .recharts-tooltip-wrapper {
+          outline: none;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            primary: 'var(--color-primary)',
+                            accent: 'var(--color-accent)',
+                            success: 'var(--color-success)',
+                            warning: 'var(--color-warning)',
+                            error: 'var(--color-error)',
+                        },
+                        app: {
+                            bg: 'var(--color-bg-primary)',
+                            surface: 'var(--color-bg-surface)',
+                            sidebar: 'var(--color-bg-sidebar)',
+                            border: 'var(--color-border)',
+                            'border-strong': 'var(--color-border-strong)',
+                        },
+                        content: {
+                            primary: 'var(--color-text-primary)',
+                            secondary: 'var(--color-text-secondary)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+<script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "@google/genai": "https://esm.sh/@google/genai@^1.35.0",
+    "zustand": "https://esm.sh/zustand@^5.0.10",
+    "zustand/": "https://esm.sh/zustand@^5.0.10/",
+    "@dnd-kit/core": "https://esm.sh/@dnd-kit/core@^6.1.0",
+    "@dnd-kit/sortable": "https://esm.sh/@dnd-kit/sortable@^8.0.0",
+    "@dnd-kit/utilities": "https://esm.sh/@dnd-kit/utilities@^3.2.2",
+    "recharts": "https://esm.sh/recharts@^2.12.7"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="overflow-hidden">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
