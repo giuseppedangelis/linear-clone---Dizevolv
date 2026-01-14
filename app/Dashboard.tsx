@@ -1,8 +1,8 @@
 
 import React, { useMemo } from 'react';
 import { useStore } from '../store';
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+import {
+  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   LineChart, Line, PieChart, Pie, Cell, Legend, AreaChart, Area
 } from 'recharts';
 import { Status, Analytics } from '../types';
@@ -39,7 +39,7 @@ const ChartContainer = ({ title, children, className = "" }: { title: string, ch
 const Dashboard = () => {
   const issues = useStore(s => s.issues);
   const currentUser = useStore(s => s.currentUser);
-  
+
   // Mock Analytics Generation Logic
   const analyticsData: Analytics = useMemo(() => {
     // Velocity
@@ -92,7 +92,7 @@ const Dashboard = () => {
     };
   }, [issues]);
 
-  const COLORS = ['#32B8C6', '#2180A1', '#8a8f98', '#E68159', '#C01540'];
+  const COLORS = ['#FF5500', '#FF7733', '#8a8f98', '#E68159', '#C01540'];
 
   // Global activity feed
   const allActivities = useMemo(() => {
@@ -118,29 +118,29 @@ const Dashboard = () => {
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <StatCard 
-            label="Total Scope" 
-            value={issues.length} 
-            subtext="Issues in backlog" 
-            trend={{ value: '12%', positive: true }} 
+          <StatCard
+            label="Total Scope"
+            value={issues.length}
+            subtext="Issues in backlog"
+            trend={{ value: '12%', positive: true }}
           />
-          <StatCard 
-            label="Completed" 
-            value={issues.filter(i => i.status === Status.DONE).length} 
-            subtext="Merged this cycle" 
-            trend={{ value: '5%', positive: true }} 
+          <StatCard
+            label="Completed"
+            value={issues.filter(i => i.status === Status.DONE).length}
+            subtext="Merged this cycle"
+            trend={{ value: '5%', positive: true }}
           />
-          <StatCard 
-            label="Avg. Cycle Time" 
-            value={`${analyticsData.cycleTime.average}d`} 
-            subtext="From started to done" 
-            trend={{ value: '0.8d', positive: false }} 
+          <StatCard
+            label="Avg. Cycle Time"
+            value={`${analyticsData.cycleTime.average}d`}
+            subtext="From started to done"
+            trend={{ value: '0.8d', positive: false }}
           />
-          <StatCard 
-            label="Throughput" 
-            value="18.5" 
-            subtext="Issues per week" 
-            trend={{ value: '3.2', positive: true }} 
+          <StatCard
+            label="Throughput"
+            value="18.5"
+            subtext="Issues per week"
+            trend={{ value: '3.2', positive: true }}
           />
         </div>
 
@@ -151,19 +151,19 @@ const Dashboard = () => {
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={analyticsData.velocity} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis 
-                  dataKey="cycleName" 
-                  axisLine={false} 
-                  tickLine={false} 
+                <XAxis
+                  dataKey="cycleName"
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fill: 'var(--color-text-secondary)', fontSize: 10 }}
                   dy={10}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fill: 'var(--color-text-secondary)', fontSize: 10 }}
                 />
-                <Tooltip 
+                <Tooltip
                   cursor={{ fill: 'var(--color-bg-sidebar)', opacity: 0.5 }}
                   contentStyle={{ backgroundColor: 'var(--color-bg-surface)', borderColor: 'var(--color-border)', borderRadius: '8px', fontSize: '12px' }}
                 />
@@ -191,7 +191,7 @@ const Dashboard = () => {
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ backgroundColor: 'var(--color-bg-surface)', borderColor: 'var(--color-border)', borderRadius: '8px', fontSize: '12px' }}
                 />
                 <Legend layout="horizontal" verticalAlign="bottom" align="center" iconType="circle" wrapperStyle={{ fontSize: '10px', bottom: 0 }} />
@@ -207,24 +207,24 @@ const Dashboard = () => {
               <AreaChart data={analyticsData.burndown} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorActual" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.1}/>
-                    <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="var(--color-primary)" stopOpacity={0.1} />
+                    <stop offset="95%" stopColor="var(--color-primary)" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                <XAxis 
-                  dataKey="day" 
-                  axisLine={false} 
-                  tickLine={false} 
+                <XAxis
+                  dataKey="day"
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fill: 'var(--color-text-secondary)', fontSize: 10 }}
                   dy={10}
                 />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
                   tick={{ fill: 'var(--color-text-secondary)', fontSize: 10 }}
                 />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{ backgroundColor: 'var(--color-bg-surface)', borderColor: 'var(--color-border)', borderRadius: '8px', fontSize: '12px' }}
                 />
                 <Area type="monotone" dataKey="actual" name="Actual Remaining" stroke="var(--color-primary)" fillOpacity={1} fill="url(#colorActual)" strokeWidth={3} />
@@ -235,57 +235,57 @@ const Dashboard = () => {
 
           {/* Activity Heatmap Grid */}
           <ChartContainer title="Recent Team Activity" className="lg:col-span-6">
-             <div className="flex flex-col h-full">
-                <div className="flex-1 grid grid-cols-7 gap-2">
-                  {analyticsData.activityMap.map((day, idx) => (
-                    <div 
-                      key={idx} 
-                      className={`aspect-square rounded-sm border border-app-border/50 group relative transition-all`}
-                      style={{ 
-                        backgroundColor: day.count === 0 ? 'transparent' : `rgba(50, 184, 198, ${Math.min(day.count / 8, 1)})` 
-                      }}
-                    >
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-app-surface border border-app-border-strong px-2 py-1 rounded text-[10px] whitespace-nowrap z-30 shadow-xl">
-                        {day.date}: {day.count} contributions
-                      </div>
+            <div className="flex flex-col h-full">
+              <div className="flex-1 grid grid-cols-7 gap-2">
+                {analyticsData.activityMap.map((day, idx) => (
+                  <div
+                    key={idx}
+                    className={`aspect-square rounded-sm border border-app-border/50 group relative transition-all`}
+                    style={{
+                      backgroundColor: day.count === 0 ? 'transparent' : `rgba(255, 85, 0, ${Math.min(day.count / 8, 1)})`
+                    }}
+                  >
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-app-surface border border-app-border-strong px-2 py-1 rounded text-[10px] whitespace-nowrap z-30 shadow-xl">
+                      {day.date}: {day.count} contributions
                     </div>
-                  ))}
-                </div>
-                <div className="mt-4 flex items-center justify-between text-[10px] text-content-secondary font-mono">
-                  <span>Last 28 days</span>
-                  <div className="flex items-center gap-1.5">
-                    <span>Less</span>
-                    <div className="w-2.5 h-2.5 rounded-sm bg-app-bg border border-app-border"></div>
-                    <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary/20"></div>
-                    <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary/50"></div>
-                    <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary/80"></div>
-                    <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary"></div>
-                    <span>More</span>
                   </div>
+                ))}
+              </div>
+              <div className="mt-4 flex items-center justify-between text-[10px] text-content-secondary font-mono">
+                <span>Last 28 days</span>
+                <div className="flex items-center gap-1.5">
+                  <span>Less</span>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-app-bg border border-app-border"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary/20"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary/50"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary/80"></div>
+                  <div className="w-2.5 h-2.5 rounded-sm bg-brand-primary"></div>
+                  <span>More</span>
                 </div>
-             </div>
+              </div>
+            </div>
           </ChartContainer>
         </div>
 
         {/* Bottom Section: Feed & Details */}
         <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 pb-20">
           <div className="lg:col-span-4 bg-app-surface border border-app-border rounded-xl p-6">
-             <h3 className="text-[11px] font-bold uppercase tracking-widest text-content-secondary mb-6 flex items-center gap-2">
-               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-               Recent History
-             </h3>
-             <ActivityFeed activities={allActivities} />
-             {allActivities.length === 0 && (
-               <div className="py-10 text-center text-xs text-content-secondary italic">No recent activity</div>
-             )}
+            <h3 className="text-[11px] font-bold uppercase tracking-widest text-content-secondary mb-6 flex items-center gap-2">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              Recent History
+            </h3>
+            <ActivityFeed activities={allActivities} />
+            {allActivities.length === 0 && (
+              <div className="py-10 text-center text-xs text-content-secondary italic">No recent activity</div>
+            )}
           </div>
           <div className="lg:col-span-8 bg-app-surface border border-app-border rounded-xl p-6 flex flex-col items-center justify-center text-center">
-             <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary mb-4">
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-             </div>
-             <h2 className="text-xl font-bold text-content-primary mb-2">High Team Health</h2>
-             <p className="text-sm text-content-secondary max-w-md mx-auto mb-6">Your team's velocity has increased by 15% compared to the last cycle. Focus on maintaining this momentum while keeping an eye on the backlog growth.</p>
-             <button className="text-xs font-bold text-brand-primary hover:underline uppercase tracking-widest">Generate Detailed Insights →</button>
+            <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center text-brand-primary mb-4">
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
+            </div>
+            <h2 className="text-xl font-bold text-content-primary mb-2">High Team Health</h2>
+            <p className="text-sm text-content-secondary max-w-md mx-auto mb-6">Your team's velocity has increased by 15% compared to the last cycle. Focus on maintaining this momentum while keeping an eye on the backlog growth.</p>
+            <button className="text-xs font-bold text-brand-primary hover:underline uppercase tracking-widest">Generate Detailed Insights →</button>
           </div>
         </div>
       </div>

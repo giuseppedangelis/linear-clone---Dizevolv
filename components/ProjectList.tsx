@@ -18,7 +18,7 @@ const ProjectList = () => {
 
   const statusColors = {
     planned: 'gray',
-    started: 'teal',
+    started: 'orange',
     paused: 'orange',
     completed: 'indigo',
     canceled: 'red'
@@ -38,12 +38,12 @@ const ProjectList = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map(project => {
             const { completed, total, progress } = getProjectStats(project.id);
-            
+
             return (
-              <div 
+              <div
                 key={project.id}
                 onClick={() => { setSelectedProject(project.id); setView('project-detail'); }}
-                className="group bg-[#16161a] border border-[#1f1f23] rounded-xl p-6 hover:border-teal-500/30 transition-all cursor-pointer flex flex-col h-full shadow-lg"
+                className="group bg-[#16161a] border border-[#1f1f23] rounded-xl p-6 hover:border-brand-primary/30 transition-all cursor-pointer flex flex-col h-full shadow-lg"
               >
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
@@ -51,7 +51,7 @@ const ProjectList = () => {
                       {project.icon || '📁'}
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-100 group-hover:text-teal-400 transition-colors line-clamp-1">
+                      <h3 className="font-semibold text-gray-100 group-hover:text-brand-primary transition-colors line-clamp-1">
                         {project.name}
                       </h3>
                       <Badge variant={statusColors[project.status]} size="sm" className="mt-1 capitalize">
@@ -68,11 +68,11 @@ const ProjectList = () => {
                 <div className="mt-auto space-y-4">
                   <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest">
                     <span className="text-gray-600">Progress</span>
-                    <span className="text-teal-500">{progress}%</span>
+                    <span className="text-brand-primary">{progress}%</span>
                   </div>
                   <div className="h-1.5 w-full bg-[#080809] rounded-full overflow-hidden">
-                    <div 
-                      className={`h-full bg-teal-500 transition-all duration-500 ease-out rounded-full`} 
+                    <div
+                      className={`h-full bg-brand-primary transition-all duration-500 ease-out rounded-full`}
                       style={{ width: `${progress}%` }}
                     />
                   </div>

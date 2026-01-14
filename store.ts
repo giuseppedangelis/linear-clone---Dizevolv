@@ -27,19 +27,19 @@ interface AppState {
   setSelectedCycle: (id: string | null) => void;
   selectedProjectId: string | null;
   setSelectedProject: (id: string | null) => void;
-  
+
   // Data
   issues: Issue[];
   cycles: Cycle[];
   projects: Project[];
   currentUser: User;
   currentTeam: Team;
-  
+
   // Selection & Keyboard Nav
   activeIssueIndex: number;
   selectedIssueId: string | null;
   bulkSelectedIds: Set<string>;
-  
+
   // UI State
   isCreateModalOpen: boolean;
   isCommandPaletteOpen: boolean;
@@ -48,7 +48,7 @@ interface AppState {
   filters: FilterState;
   savedViews: SavedView[];
   boardCompact: boolean;
-  
+
   // Actions
   setActiveIssueIndex: (index: number) => void;
   setSelectedIssue: (id: string | null) => void;
@@ -64,13 +64,13 @@ interface AppState {
   addIssue: (issue: Issue) => void;
   updateIssue: (id: string, updates: Partial<Issue>) => void;
   deleteIssues: (ids: string[]) => void;
-  
+
   // Collaboration Actions
   addComment: (issueId: string, comment: Partial<Comment>) => void;
   updateComment: (issueId: string, commentId: string, body: string) => void;
   deleteComment: (issueId: string, commentId: string) => void;
   toggleReaction: (issueId: string, commentId: string, emoji: string) => void;
-  
+
   // Integration Actions
   linkGithubPR: (issueId: string, githubData: IntegrationData['github']) => void;
   linkFigmaFile: (issueId: string, figmaData: IntegrationData['figma']) => void;
@@ -78,11 +78,11 @@ interface AppState {
 
   saveCurrentView: (name: string) => void;
   applySavedView: (view: SavedView) => void;
-  
+
   // Project Actions
   addProject: (project: Project) => void;
   updateProject: (id: string, updates: Partial<Project>) => void;
-  
+
   // Cycle Actions
   addCycle: (cycle: Cycle) => void;
   moveIssueToCycle: (issueId: string, cycleId: string | null) => void;
@@ -161,7 +161,7 @@ export const useStore = create<AppState>()(
       setSelectedCycle: (id) => set({ selectedCycleId: id }),
       selectedProjectId: null,
       setSelectedProject: (id) => set({ selectedProjectId: id }),
-      
+
       issues: [
         {
           id: '1',
@@ -172,7 +172,7 @@ export const useStore = create<AppState>()(
           priority: Priority.HIGH,
           creator: MOCK_USER,
           team: MOCK_TEAM,
-          labels: [{ id: 'l1', name: 'Setup', color: '#14b8a6' }],
+          labels: [{ id: 'l1', name: 'Setup', color: '#FF5500' }],
           comments: [],
           activities: [
             { id: 'a1', issueId: '1', user: MOCK_USER, type: 'create', createdAt: new Date(Date.now() - 86400000).toISOString() }
@@ -193,22 +193,22 @@ export const useStore = create<AppState>()(
         }
       ],
       cycles: [
-        { 
-          id: 'c1', 
-          name: 'Sprint 1: Foundation', 
-          number: 1, 
-          startDate: new Date(Date.now() - 604800000).toISOString(), 
-          endDate: new Date(Date.now() + 604800000).toISOString() 
+        {
+          id: 'c1',
+          name: 'Sprint 1: Foundation',
+          number: 1,
+          startDate: new Date(Date.now() - 604800000).toISOString(),
+          endDate: new Date(Date.now() + 604800000).toISOString()
         }
       ],
       projects: INITIAL_PROJECTS,
       currentUser: MOCK_USER,
       currentTeam: MOCK_TEAM,
-      
+
       activeIssueIndex: 0,
       selectedIssueId: null,
       bulkSelectedIds: new Set(),
-      
+
       isCreateModalOpen: false,
       isCommandPaletteOpen: false,
       isFilterSidebarOpen: false,
@@ -216,7 +216,7 @@ export const useStore = create<AppState>()(
       boardCompact: false,
       filters: INITIAL_FILTERS,
       savedViews: [],
-      
+
       setActiveIssueIndex: (activeIssueIndex) => set({ activeIssueIndex }),
       setSelectedIssue: (id) => set({ selectedIssueId: id }),
       toggleBulkSelect: (id) => set((state) => {
@@ -233,11 +233,11 @@ export const useStore = create<AppState>()(
       toggleBoardMode: () => set((state) => ({ boardCompact: !state.boardCompact })),
       setFilters: (updates) => set((state) => ({ filters: { ...state.filters, ...updates } })),
       resetFilters: () => set({ filters: INITIAL_FILTERS }),
-      
-      addIssue: (issue) => set((state) => ({ 
-        issues: [{ ...issue, activities: [{ id: Math.random().toString(), issueId: issue.id, user: state.currentUser, type: 'create', createdAt: new Date().toISOString() }], comments: [] }, ...state.issues] 
+
+      addIssue: (issue) => set((state) => ({
+        issues: [{ ...issue, activities: [{ id: Math.random().toString(), issueId: issue.id, user: state.currentUser, type: 'create', createdAt: new Date().toISOString() }], comments: [] }, ...state.issues]
       })),
-      
+
       updateIssue: (id, updates) => set((state) => {
         const currentIssue = state.issues.find(i => i.id === id);
         if (!currentIssue) return state;
@@ -256,11 +256,11 @@ export const useStore = create<AppState>()(
         }
 
         return {
-          issues: state.issues.map(i => i.id === id ? { 
-            ...i, 
-            ...updates, 
+          issues: state.issues.map(i => i.id === id ? {
+            ...i,
+            ...updates,
             activities: [...i.activities, ...newActivities],
-            updatedAt: now 
+            updatedAt: now
           } : i)
         };
       }),
@@ -346,17 +346,17 @@ export const useStore = create<AppState>()(
         issues: state.issues.filter(i => !ids.includes(i.id)),
         bulkSelectedIds: new Set()
       })),
-      
+
       saveCurrentView: (name) => set((state) => ({
         savedViews: [...state.savedViews, { id: Math.random().toString(), name, filters: state.filters }]
       })),
       applySavedView: (view) => set({ filters: view.filters, currentView: 'issues' }),
-      
+
       addProject: (project) => set((state) => ({ projects: [...state.projects, project] })),
       updateProject: (id, updates) => set((state) => ({
         projects: state.projects.map(p => p.id === id ? { ...p, ...updates } : p)
       })),
-      
+
       addCycle: (cycle) => set((state) => ({ cycles: [...state.cycles, cycle] })),
       moveIssueToCycle: (issueId, cycleId) => set((state) => {
         const cycle = state.cycles.find(c => c.id === cycleId) || undefined;
@@ -367,11 +367,11 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'artti-linear-clone-storage-v13',
-      partialize: (state) => ({ 
+      partialize: (state) => ({
         isAuthenticated: state.isAuthenticated,
         user: state.user,
-        savedViews: state.savedViews, 
-        cycles: state.cycles, 
+        savedViews: state.savedViews,
+        cycles: state.cycles,
         projects: state.projects,
         theme: state.theme
       }),
